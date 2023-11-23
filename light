@@ -20,11 +20,11 @@ while getopts ":hA:U:" option; do
          display_help
          exit;;
       A)
-	 inc="$OPTARG"
+	 inc="${BACKLIGHT_FORCE_STEP:-$OPTARG}"
 	 adjust_brightness inc
          exit;;
       U)
-	 inc="-$OPTARG"
+	 inc="-${BACKLIGHT_FORCE_STEP:-$OPTARG}"
 	 adjust_brightness inc
          exit;;
 
