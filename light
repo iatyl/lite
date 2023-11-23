@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+backlight_device="${BACKLIGHT_DEVICE:-acpi_video0}"
+current_brightness=`cat "/sys/class/backlight/$backlight_device/brightness"`
+display_help()
+{
+   echo "Syntax: $1 [-h|A|U] <integer>"
+   echo
+}
+adjust_brightness()
+{
+   to=$(($current_brightness+($1)))
+   echo "New brightness $to"
+   sudo sh -c "echo $to > /sys/class/backlight/$backlight_device/brightness"
+   echo return code: $? \(0 means successful\)
+}
+
+while getopts ":hA:U:" option; do
+   case $option in
+      h)
+         display_help
+         exit;;
+      A)
+	 inc="$OPTARG"
+	 adjust_brightness inc
+         exit;;
+      U)
+	 inc="-$OPTARG"
+	 adjust_brightness inc
+         exit;;
+
+     \?)
+         echo "Error: Invalid option"
+	 display_help
+         exit;;
+   esac
+done
