@@ -9,9 +9,17 @@ display_help()
 adjust_brightness()
 {
    to=$(($current_brightness+($1)))
-   echo "New brightness $to"
-   sudo sh -c "echo $to > /sys/class/backlight/$backlight_device/brightness"
-   echo return code: $? \(0 means successful\)
+   if ((to >= 0)); then
+	   inc_ori_delta=$(($current_brightness-$1))
+	   if ((inc_ori_delta < 0)) then
+		   sh -c "${BACKLIGHT_ZERO_ON_INC:-monctl -t}"
+	   fi
+	   echo "New brightness $to"
+	   sudo sh -c "echo $to > /sys/class/backlight/$backlight_device/brightness"
+	   echo return code: $? \(0 means successful\)
+   else
+	   sh -c "${BACKLIGHT_ZERO_ON_DESC:-monctl -f}"
+   fi
 }
 
 while getopts ":hA:U:" option; do
