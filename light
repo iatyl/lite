@@ -10,15 +10,13 @@ adjust_brightness()
 {
    to=$(($current_brightness+($1)))
    if ((to >= 0)); then
-	   inc_ori_delta=$(($current_brightness-$1))
-	   if ((inc_ori_delta < 0)) then
-		   sh -c "${BACKLIGHT_ZERO_ON_INC:-monctl -t}"
-	   fi
+	   sh -c "${BACKLIGHT_ZERO_ON_INC:-monctl -t}"
 	   echo "New brightness $to"
 	   sudo sh -c "echo $to > /sys/class/backlight/$backlight_device/brightness"
 	   echo return code: $? \(0 means successful\)
    else
 	   sh -c "${BACKLIGHT_ZERO_ON_DESC:-monctl -f}"
+	   sudo sh -c "echo 0 > /sys/class/backlight/$backlight_device/brightness"
    fi
 }
 
