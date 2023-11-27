@@ -3,7 +3,7 @@ backlight_device="${BACKLIGHT_DEVICE:-acpi_video0}"
 current_brightness=`cat "/sys/class/backlight/$backlight_device/brightness"`
 display_help()
 {
-   echo "Syntax: $1 [-h|A|U] <integer>"
+   echo "Syntax: $0 [-h|A|U] <integer>"
    echo
 }
 adjust_brightness()
