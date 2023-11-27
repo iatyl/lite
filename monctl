@@ -5,7 +5,7 @@ SCREEN_OFF_COMMAND="wlr-randr --output $MONITOR --off"
 SCREEN_TOGGLE_COMMAND="wlr-randr --output $MONITOR --toggle"
 echo $MONITOR
 display_help() {
-	echo "$0: [-htf]"
+	echo "$0: [-htfa]"
 	echo "-t: screen on"
 	echo "-f: screen off"
 	echo "-a: screen toggle"
