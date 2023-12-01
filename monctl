@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-MONITOR=`wlr-randr|head -n 1|cut -d " " -f1`
+WLR_MONITOR=`wlr-randr|head -n 1|cut -d " " -f1`
+MONITOR="${DEFAULT_MONITOR:-${WLR_MONITOR}}"
+
+
 SCREEN_ON_COMMAND="wlr-randr --output $MONITOR --on"
 SCREEN_OFF_COMMAND="wlr-randr --output $MONITOR --off"
 SCREEN_TOGGLE_COMMAND="wlr-randr --output $MONITOR --toggle"
